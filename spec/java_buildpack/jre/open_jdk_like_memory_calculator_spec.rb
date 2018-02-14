@@ -90,8 +90,12 @@ describe JavaBuildpack::Jre::OpenJDKLikeMemoryCalculator do
 
     command = component.memory_calculation_command
 
-    expect(command).to eq('JAVA_OPTS="$JAVA_OPTS"')
-  end
+#    expect(command).to eq('JAVA_OPTS="$JAVA_OPTS"')
+    expect(command).to eq('CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_like_memory_calculator/bin/' \
+                            'java-buildpack-memory-calculator-0.0.0 -totMemory=$MEMORY_LIMIT -stackThreads=200 ' \
+                            '-loadedClasses=2 -poolType=metaspace -vmOptions="$JAVA_OPTS") && echo JVM Memory ' \
+                            'Configuration: $CALCULATED_MEMORY && JAVA_OPTS="$JAVA_OPTS $CALCULATED_MEMORY"')
+	end
 
   it 'does not throw an error when a directory ends in .jar',
      app_fixture:   'jre_memory_calculator_jar_directory',
