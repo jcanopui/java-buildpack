@@ -51,9 +51,10 @@ module JavaBuildpack
       #
       # @return [String] the memory calculation command
       def memory_calculation_command
-        "CALCULATED_MEMORY=$(#{memory_calculation_string(@droplet.root)}) && " \
-        'echo JVM Memory Configuration: $CALCULATED_MEMORY && ' \
-        'JAVA_OPTS="$JAVA_OPTS $CALCULATED_MEMORY"'
+		'JAVA_OPTS="$JAVA_OPTS"'
+#        "CALCULATED_MEMORY=$(#{memory_calculation_string(@droplet.root)}) && " \
+#        'echo JVM Memory Configuration: $CALCULATED_MEMORY && ' \
+#        'JAVA_OPTS="$JAVA_OPTS $CALCULATED_MEMORY"'
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
